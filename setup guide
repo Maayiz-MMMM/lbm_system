@@ -1,0 +1,100 @@
+01. create database any name
+
+02.my database sql files
+
+*file path - ly_system->database-> db.sql,lm_system.sql
+db.sql – contains only database and table creation queries.
+lm_system.sql – contains all my tested and working queries.
+
+Import the SQL file into the created database.
+
+3. In the config.php file, set the $projectPath variable to your project folder name.
+Example: http://localhost/your-folder/index.php
+
+If you use my repository, set $projectPath = '/lbm_system' in config.php
+
+After setting these three steps, everything will be set up.
+
+my file structure.
+lbm_system/
+├── assets/
+│   ├── css/
+│   │   ├── calender.css
+│   │   ├── index.css
+│   │   ├── login.css
+│   │   └── tables.css
+│   ├── form_ajax/
+│   │   ├── books.js
+│   │   ├── borrowings.js
+│   │   ├── fine.js
+│   │   ├── search_books_index.js
+│   │   ├── search_books.js
+│   │   └── users.js
+│   ├── images/
+│   ├── js/
+│   │   ├── calender.js
+│   │   └── login.js
+│   ├── themes/
+│   │   ├── mazer-theme/
+│   │   └── st-theme/
+│   └── uploads/
+│       ├── books/
+│       └── profile/
+│
+├── database/
+│   ├── db.sql
+│   └── lm_system.sql
+│
+├── helpers/
+│   ├── AppManager.php
+│   ├── AuthManager.php
+│   ├── file_uploader.php
+│   ├── PresistanceManager.php
+│   └── SessionManager.php
+│
+├── models/
+│   ├── BaseModel.php
+│   ├── book.php
+│   ├── borrowing.php
+│   ├── fine.php
+│   └── user.php
+│
+├── services/
+│   ├── books/
+│   │   └── books_ajax.php
+│   ├── borrowing/
+│   │   └── borrowing_ajax.php
+│   ├── fines/
+│   │   └── fine_ajax.php
+│   ├── search_books/
+│   │   └── search_books_ajax.php
+│   ├── users/
+│   │   └── users_ajax.php
+│   ├── auth.php
+│   └── logout.php
+│
+├── view/
+│   ├── admin/
+│   │   ├── layouts/
+│   │   │   ├── header.php
+│   │   │   └── footer.php
+│   │   ├── books.php
+│   │   ├── borrowing.php
+│   │   ├── dashboard.php
+│   │   ├── fines.php
+│   │   └── users.php
+│   ├── auth/
+│   │   ├── login.php
+│   │   └── unauthorized.php
+│   └── member/
+│       ├── layouts/
+│       │   ├── header.php
+│       │   └── footer.php
+│       ├── search_books.php
+│       ├── returned_books.php
+│       ├── dashboard.php
+│       └── fines.php
+│
+├── config.php
+├── index.php
+└── find.php
