@@ -1,8 +1,13 @@
 <?php require_once('layouts/header.php');
 require_once __DIR__ . '/../../models/book.php';
+require_once __DIR__ . '/../../models/category.php';
+
 
 $booksModel = new Book();
-$books = $booksModel->getAll();
+$books = $booksModel->getAllBook();
+
+$categoryModel = new Book();
+$categories = $categoryModel->getCategories();
 
 ?>
 
@@ -148,15 +153,22 @@ $books = $booksModel->getAll();
                             <div class="invalid-feedback">Author required</div>
 
                         </div>
-                        <input type="text" name="category"
-                            class="form-control"
-                            placeholder="Category"
-                            required
-                            pattern="[A-Za-z ]+">
-                        <div class="invalid-feedback">Category required</div>
+                       <label>Category:</label>
+<div class="form-group">
+    <select name="category_id" class="form-control" required>
+        <option value="">-- Select Category --</option>
+
+        <?php foreach ($categories as $cat): ?>
+            <option value="<?= $cat['id'] ?>">
+                <?= htmlspecialchars($cat['name']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <div class="invalid-feedback">Category is required</div>
+</div>
 
 
-                        <label>total_qty: </label>
+                        <label>Total qty: </label>
                         <div class="form-group">
                             <input type="number"
                                 name="total_qty"

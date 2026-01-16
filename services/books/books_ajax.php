@@ -4,6 +4,8 @@ require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../models/book.php';
 require_once __DIR__.'/../../helpers/file_uploader.php';
 require_once __DIR__.'/../../models/borrowing.php';
+require_once __DIR__.'/../../models/category.php';
+
 
 header('Content-Type: application/json');
 
@@ -20,16 +22,14 @@ $target_dir = BASE_PATH . "/assets/uploads/";
 
                 $title = trim($_POST['title'])??'';
                 $author = trim($_POST['author'])??'';
-                $category = trim($_POST['category'])??'';
+                $category_id = trim($_POST['category_id'])??'';
                 $total_qty = trim($_POST['total_qty'])??'';
                 $isbn = trim($_POST['isbn'])??'';
 
 
 
              $fields = [ 'Title'   => trim($_POST['title']),
-                              'Author'  => trim($_POST['author']),
-                             'Category'=> trim($_POST['category']),
-                            ];
+                              'Author'  => trim($_POST['author']),];
 
                 $pattern = '/^[A-Za-z]{2,}(?: [A-Za-z]{2,})*$/';
 
@@ -44,7 +44,7 @@ $target_dir = BASE_PATH . "/assets/uploads/";
                 }
               
 
-              if (empty($title) || empty($author) || empty($category) || empty($total_qty) || empty($isbn)) {
+              if (empty($title) || empty($author) || empty($category_id) || empty($total_qty) || empty($isbn)) {
                     echo json_encode(['status' => 'error', 'message' => 'All fields are required.']);
                     exit;
                 }
@@ -53,6 +53,7 @@ $target_dir = BASE_PATH . "/assets/uploads/";
                 $imageFileName = null;
                  $bookmodel = new Book();
                  $bookmodel->startTransaction();
+
 
 
                  if (!empty($_FILES['cover_image'])) {
@@ -66,9 +67,9 @@ $target_dir = BASE_PATH . "/assets/uploads/";
 
 
                
-          $available_qty = $total_qty;
+             $available_qty = $total_qty;
                 
-                $result = $bookmodel->add_new_book($title, $author, $category, $imageFileName, $total_qty,$available_qty,$isbn);
+                $result = $bookmodel->add_new_book($title, $author, $category_id, $imageFileName, $total_qty,$available_qty,$isbn);
    
               
                 
@@ -92,14 +93,17 @@ $target_dir = BASE_PATH . "/assets/uploads/";
                 $id = trim($_POST['book_id'])??'';
                
                 if (empty($id)) {
-                    echo json_encode(['status' => 'error', 'message' => 'Book ID is required.']);
+                    echo json_encode(['status' => 'error', 'message' => 'Book is required.']);
                     exit;
                 }
                 $bookmodel = new Book();
                 $book = $bookmodel->getById($id);
+
+                $categorymodel = new Category();
+                $categories = $categorymodel->getAllCategory();
                 
                 if ($book) {
-                    echo json_encode(['status' => 'success', 'data' => $book]);
+                    echo json_encode([ 'status' => 'success',  'data' => $book, 'categories' => $categories ]);
                 } else {
                     echo json_encode(['status' => 'error', 'message' => 'Book not found.']);
                 }
@@ -120,18 +124,16 @@ $target_dir = BASE_PATH . "/assets/uploads/";
         $id          = trim($_POST['book_id'] ?? '');
         $title       = trim($_POST['title'] ?? '');
         $author      = trim($_POST['author'] ?? '');
-        $category    = trim($_POST['category'] ?? '');
+        $category_id    = trim($_POST['category_id'] ?? '');
         $total_qty   = trim($_POST['total_qty'] ?? '');
         $isbn        = trim($_POST['isbn'] ?? '');
         $old_image   = $_POST['old_cover_image'] ?? '';
         $new_cover_image = $_FILES['cover_image'] ?? null;
         $is_active = $_POST['is_active'] ?? true;
-
         
 
              $fields = [ 'Title'   => trim($_POST['title']),
-                              'Author'  => trim($_POST['author']),
-                             'Category'=> trim($_POST['category']),
+                              'Author'  => trim($_POST['author'])
                             ];
 
                 $pattern = '/^[A-Za-z]{2,}(?: [A-Za-z]{2,})*$/';
@@ -146,7 +148,7 @@ $target_dir = BASE_PATH . "/assets/uploads/";
                     }
                 }
 
-        if (empty($id) || empty($title) || empty($author) || empty($category) || empty($total_qty) || empty($isbn)) {
+        if (empty($id) || empty($title) || empty($author) || empty($category_id) || empty($total_qty) || empty($isbn)) {
             echo json_encode(['status' => 'error', 'message' => 'All fields are required.']);
             exit;
         }
@@ -180,7 +182,7 @@ $target_dir = BASE_PATH . "/assets/uploads/";
 
         $available_qty = $total_qty - $borrowedQty;
 
-      $result =   $bookmodel->saveCall($title,$author,$category,$imageFileName,$available_qty,$total_qty,$isbn,$is_active,$id);
+      $result =   $bookmodel->saveCall($title,$author,$category_id,$imageFileName,$available_qty,$total_qty,$isbn,$is_active,$id);
 
 
         if ($result) {

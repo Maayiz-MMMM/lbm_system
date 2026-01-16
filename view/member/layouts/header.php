@@ -40,6 +40,12 @@ $currentFilename = basename($currentUrl);
     <link href="<?= asset('assets/css/tables.css') ?>" rel="stylesheet">
 
 
+    <style>
+        .sidebar-wrapper {
+            height: 100vh;
+        }
+    </style>
+
 
 </head>
 
@@ -69,8 +75,8 @@ $currentFilename = basename($currentUrl);
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
+                <div class="sidebar-menu d-flex flex-column" style="height: calc(100vh - 80px);">
+                    <ul class="menu flex-grow-1">
                         <li class="sidebar-title">Menu</li>
                         <li class="sidebar-item  <?= $currentFilename == 'dashboard.php' ? 'active' : '' ?>">
                             <a href="dashboard.php" class='sidebar-link'>
@@ -97,6 +103,11 @@ $currentFilename = basename($currentUrl);
                             </a>
                         </li>
                     </ul>
+                    <div class="p-3 mt-auto text-center">
+                        <a href="<?= asset('services/logout.php') ?>" class="btn btn-primary w-100 rounded-pill">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                    </div>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>

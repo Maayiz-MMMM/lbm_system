@@ -16,7 +16,10 @@ $(document).on('keyup', '#search_books', function () {
             url: url,
             type: 'POST',
             dataType: 'json',
-            data: { inputVal, action: 'search_books' },
+            data: {  action:'search_books_member',
+                inputVal,
+                
+             },
             success: function (res) {
 
                 if (res.status === 'success') {
@@ -29,7 +32,7 @@ $(document).on('keyup', '#search_books', function () {
                                     <td>${book.isbn}</td>
                                     <td>${book.title}</td>
                                     <td>${book.author}</td>
-                                    <td>${book.category}</td>
+                                    <td>${book.category_name ?? '-'}</td>
                                    <td>
                 ${book.cover_image 
                     ? `<img src="${baseUrl}assets/uploads/books/${book.cover_image}" alt="${book.title}" class="table-book-img" width="80" id="uploadedAvatar" />` 

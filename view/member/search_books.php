@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../models/book.php';
 
 $booksModel = new Book();
-$books = $booksModel->getAll();
+$books = $booksModel->getAllBook();
 
 ?>
 
@@ -82,4 +82,4 @@ $books = $booksModel->getAll();
     <?php require_once('layouts/footer.php');
     ?>
 
-    <script src="<?= asset('assets/form_ajax/search_books.js')?>?v=<?= filemtime(BASE_PATH.'/assets/form_ajax/search_books.js') ?>"></script>
+        <script src="<?= asset('assets/form_ajax/search_books.js')?>?v=<?= filemtime(BASE_PATH.'/assets/form_ajax/search_books.js') ?>"></script>

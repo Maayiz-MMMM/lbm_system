@@ -16,47 +16,42 @@ $(document).on('keyup change', '#search_books, #search_type, #filter_category', 
 
     $.ajax({
         url: url,
+        
         type: 'POST',
         dataType: 'json',
-        data: { 
-        inputVal, 
-        searchBy, 
-        category,
-        action: 'search_books' 
-    },
+       data: {
+         action: 'search_books_landing',
+    inputVal: inputVal,   
+    searchBy: searchBy,
+    category: category
+},
         success: function(res) {
             let html = '';
 
             if (res.status === 'success' && res.data && res.data.length > 0) {
                 res.data.forEach(book => {
                     html += `
-   <div class="col-md-6 col-lg-4">
-        <div class="service-item book-card">
-            <div class="service-img book-img">
-                <img 
-                    src="${book.cover_image ? baseAssets + '/' + book.cover_image : defaultCover}"
-                    alt="${book.title}"
-                   
-                >
-               
-                ${
-                    book.available_qty > 0  ? `<span class="book-status bg-success">Available</span>`
-                 :`<span class="book-status bg-danger ">Out of Stock</span>` }
-                   
-            </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-item book-card">
+                                <div class="service-img book-img">
+                                    <img 
+                                        src="${book.cover_image ? baseAssets + '/' + book.cover_image : defaultCover}" 
+                                        alt="${book.title}">
+                                    <span class="book-status ${book.available_qty > 0 ? 'bg-success' : 'bg-danger'}">
+                                        ${book.available_qty > 0 ? 'Available' : 'Out of Stock'}
+                                    </span>
+                                </div>
 
-           <div class="rounded-bottom p-4 bg-white">
-                <h5 class="fw-bold">${book.title}</h5>
-                <p class="mb-1"><strong>ISBN:</strong> ${book.isbn}</p>
-                <p class="mb-1"><strong>Author:</strong>${book.author}</p>
-                <p class="mb-1"><strong>Category:</strong> ${book.category}</p>
-                <p class="mb-0"><strong>Qty:</strong> ${book.available_qty}</p>
-
-                
-            </div>
-        </div>
-    </div>
-`;
+                                <div class="rounded-bottom p-4 bg-white">
+                                    <h5 class="fw-bold">${book.title}</h5>
+                                    <p class="mb-1"><strong>ISBN:</strong> ${book.isbn}</p>
+                                    <p class="mb-1"><strong>Author:</strong> ${book.author}</p>
+                                    <p class="mb-1"><strong>Category:</strong> ${book.category_name}</p>
+                                    <p class="mb-0"><strong>Qty:</strong> ${book.available_qty}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
                 });
             } else {
                 html = `
@@ -72,9 +67,7 @@ $(document).on('keyup change', '#search_books, #search_type, #filter_category', 
         },
         error: function(xhr) {
             console.error(xhr.responseText);
-            $('#search_result').html(
-                `<div class="col-12 text-danger text-center">Server error</div>`
-            );
+            $('#search_result').html('<div class="col-12 text-danger text-center">Server error</div>');
         }
     });
 });

@@ -4,29 +4,67 @@ require_once __DIR__ . '/../../models/book.php';
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'&&isset($_POST['action'])&&$_POST['action'] === 'search_books') { 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-$inputVal = $_POST['inputVal'] ?? '';
-$searchBy = $_POST['searchBy'] ?? 'title';
-$category = $_POST['category'] ?? '';
+    if (isset($_POST['action'])) {
 
-$bookModel = new Book();
+        if ($_POST['action'] === 'search_books_landing') {
 
-try {
-    $results = $bookModel->searchBooks($inputVal, $searchBy, $category);
-    echo json_encode([
-        'status' => 'success',
-        'data' => $results
-    ]);
-} catch (Exception $e) {
+
+            $inputVal = $_POST['inputVal'] ?? '';
+            $searchBy = $_POST['searchBy'] ?? 'title';
+            $category = $_POST['category'] ?? '';
+
+            $bookModel = new Book();
+
+            try {
+                $results = $bookModel->searchBooks($inputVal, $searchBy, $category);
+                echo json_encode([
+                    'status' => 'success',
+                    'data' => $results
+                ]);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ]);
+            }
+        } 
+
+        
+        if ($_POST['action'] === 'search_books_member') {
+
+
+            $inputVal = $_POST['inputVal'] ?? '';
+            $searchBy = $_POST['searchBy'] ?? 'title';
+            $category = $_POST['category'] ?? '';
+
+            $bookModel = new Book();
+
+            try {
+                $results = $bookModel->searchBooks($inputVal, $searchBy, $category);
+                echo json_encode([
+                    'status' => 'success',
+                    'data' => $results
+                ]);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ]);
+            }
+        } 
+
+        //action//
+    } else {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Invalid action'
+        ]);
+    }
+} else {
     echo json_encode([
         'status' => 'error',
-        'message' => $e->getMessage()
+        'message' => 'Invalid request'
     ]);
 }
-
-exit;
-} else {echo json_encode([
-        'status' => 'error',
-        'message' => 'invalid action'
-    ]);}

@@ -23,14 +23,14 @@ class Book extends BaseModel
         $param = array(
             ':title' => $this->title,
             ':author' => $this->author,
-            ':category' => $this->category,
+            ':category_id' => $this->category,
             ':cover_image' => $this->cover_image,
             ':total_qty' => $this->total_qty,
              ':available_qty' => $this->available_qty,
             ':isbn' => $this->isbn
         );
 
-        return $this->pm->run("INSERT INTO " . $this->getTableName() . "(title, author, category, cover_image,total_qty,available_qty,isbn) values(:title, :author, :category, :cover_image,:total_qty,:available_qty,:isbn)", $param);
+        return $this->pm->run("INSERT INTO " . $this->getTableName() . "(title, author, category_id, cover_image,total_qty,available_qty,isbn) values(:title, :author, :category_id, :cover_image,:total_qty,:available_qty,:isbn)", $param);
     }
 
     public function decreaseAvailableQty($book_id, $qty)
@@ -70,7 +70,7 @@ public function increase_available_book($book_id, $qty)
         ':title'       => $this->title,
         ':is_active' => $this->is_active,
         ':author'      => $this->author,
-        ':category'    => $this->category,
+        ':category_id'    => $this->category,
         ':cover_image' => $this->cover_image,
         ':total_qty'   => $this->total_qty,
         ':available_qty' => $this->available_qty,
@@ -82,7 +82,7 @@ public function increase_available_book($book_id, $qty)
         "UPDATE books SET
             title = :title,
             author = :author,
-            category = :category,
+            category_id = :category_id,
             cover_image = :cover_image,
             total_qty = :total_qty,
             available_qty = :available_qty,
@@ -178,26 +178,45 @@ public function setId($id) {
 
 public function searchBooks($input = '', $searchBy = 'title', $category = '')
 {
-    $sql = "SELECT * FROM books WHERE 1=1";
+    $sql = "
+        SELECT 
+            b.id,
+            b.title,
+            b.author,
+            b.isbn,
+            b.available_qty,
+            b.total_qty,
+            b.is_active,
+            b.cover_image,
+            c.name AS category_name
+        FROM books b
+        LEFT JOIN categories c ON c.id = b.category_id
+        WHERE 1=1
+    ";
+
     $params = [];
 
     if (trim($input) !== '') {
         if ($searchBy === 'author') {
-            $sql .= " AND author LIKE ?";
+            $sql .= " AND b.author LIKE ?";
         } else {
-            $sql .= " AND title LIKE ?";
+            $sql .= " AND b.title LIKE ?";
         }
         $params[] = '%' . $input . '%';
     }
+
     if ($category !== '') {
-        $sql .= " AND category = ?";
+        $sql .= " AND b.category_id = ?";
         $params[] = $category;
     }
 
-    $sql .= " ORDER BY id DESC";
+    $sql .= " ORDER BY b.id DESC";
 
     return $this->pm->run($sql, $params);
 }
+
+
+
 
 public function getBookByIsbnExceptId($isbn, $id)
 {
@@ -219,11 +238,84 @@ public function deleteRec($id)
     }
 
 
-    public function getCategories()
-    {
-        $sql = "SELECT DISTINCT category FROM " . $this->getTableName() . " ORDER BY category ASC";
-        return $this->pm->run($sql);
+  public function getCategories()
+{
+    $sql = "SELECT id, name FROM categories WHERE is_active = 1 ORDER BY name ASC";
+    return $this->pm->run($sql);
+}
+    public function getBookWithBookId($id){
+     $param = array(':id' => $id);
+      $sql = " SELECT 
+    books.id,
+    books.title,
+    books.author,
+    categories.name AS category,
+    books.isbn,
+    books.available_qty,
+    books.total_qty,
+    books.is_active
+    FROM books
+    JOIN categories ON books.category_id = categories.id;";
+    return $this->pm->run($sql,$param ,true);
+
     }
+
+    public function getAllBook(){
+      $sql = " SELECT 
+    books.id,
+    books.title,
+    books.author,
+    categories.name AS category,
+    books.isbn,
+    books.available_qty,
+    books.total_qty,
+    books.is_active,
+    books.cover_image
+    FROM books
+    JOIN categories ON books.category_id = categories.id;";
+    return $this->pm->run($sql);
+
+    }
+
+
+     public function getCategoryByCtgId($category_id)
+{
+    $param = [
+        ':category_id' => $category_id ];
+
+    $query = "SELECT * FROM " . $this->getTableName() . " 
+              WHERE  category_id = :category_id";
+    $result = $this->pm->run($query, $param);
+  
+    if(!empty($result)) 
+      return  true;
+    else {
+
+    return false;}
+}
+
+public function getBookWithCtgIdById($id)
+{
+    $sql = "
+        SELECT 
+            b.id,
+            b.title,
+            b.author,
+            b.isbn,
+            b.total_qty,
+            b.available_qty,
+            b.is_active,
+            b.cover_image,
+            b.category_id,
+            c.name AS category_name
+        FROM books b
+        LEFT JOIN categories c ON c.id = b.category_id
+        WHERE b.id = :id
+        LIMIT 1
+    ";
+
+    return $this->pm->run($sql, [':id' => $id], true);
+}
 
     
 }

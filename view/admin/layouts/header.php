@@ -47,7 +47,11 @@ $currentFilename = basename($currentUrl);
 
 
 
-
+    <style>
+        .sidebar-wrapper {
+            height: 100vh;
+        }
+    </style>
 
 
 </head>
@@ -61,7 +65,7 @@ $currentFilename = basename($currentUrl);
                     <div class="d-flex justify-content-between">
                         <!-- home navigate start  -->
                         <div class="logo">
-                            <a href="<?= url('index.php') ?>"> <button class="btn btn-light d-flex align-items-center gap-2">
+                            <a href="<?= asset('index.php') ?>"> <button class="btn btn-light d-flex align-items-center gap-2">
                                     <svg class="icon-back" viewBox="0 0 448 512">
                                         <path fill="currentColor"
                                             d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z" />
@@ -69,14 +73,14 @@ $currentFilename = basename($currentUrl);
                                     Home
                                 </button></a>
                         </div>
-                         <!-- home navigate end  -->
+                        <!-- home navigate end  -->
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
+                <div class="sidebar-menu d-flex flex-column" style="height: calc(100vh - 80px);">
+                    <ul class="menu flex-grow-1">
                         <li class="sidebar-title">Menu</li>
                         <li class="sidebar-item  <?= $currentFilename == 'dashboard.php' ? 'active' : '' ?>">
                             <a href="dashboard.php" class='sidebar-link'>
@@ -88,6 +92,12 @@ $currentFilename = basename($currentUrl);
                             <a href="users.php" class='sidebar-link'>
                                 <i class="bi fa-solid fa-user"></i>
                                 <span>Users</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  <?= $currentFilename == 'book_category.php' ? 'active' : '' ?>">
+                            <a href="book_category.php" class='sidebar-link'>
+                                <i class="bi fa-solid fa-tags"></i>
+                                <span>Books Categories</span>
                             </a>
                         </li>
                         <li class="sidebar-item  <?= $currentFilename == 'books.php' ? 'active' : '' ?>">
@@ -109,14 +119,20 @@ $currentFilename = basename($currentUrl);
                             </a>
                         </li>
                     </ul>
+                    <div class="p-3 mt-auto text-center">
+                        <a href="<?= asset('services/logout.php') ?>" class="btn btn-primary w-100 rounded-pill">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                    </div>
                 </div>
                 <button class=" sidebar-toggler btn x"><i data-feather="x"></i></button>
-                </div>
             </div>
-            <!-- sidebar end  -->
-            <div id="main">
-                <header class="mb-3">
-                    <a href="#" class="burger-btn d-block d-xl-none">
-                        <i class="bi bi-justify fs-3"></i>
-                    </a>
-                </header>
+        </div>
+        <!-- sidebar end  -->
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+
+            </header>

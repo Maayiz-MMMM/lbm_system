@@ -37,38 +37,31 @@ function validateLettersOnly(input) {
 }
 
 
-  $('#create_book_btn').on('click', function (){
-      var formData = $('#create_book_form')[0];
+  $('#create_category_btn').on('click', function (){
+      var formData = $('#create_category_form')[0];
       var btn = $(this);
-   
 
-    var titleValidate = validateField(formData.title);
-     var authorValidate = validateField(formData.author);
-     var total_qtyValidate = validateField(formData.total_qty);
-     var isbnValidate = validateField(formData.isbn);
-    var cover_imageValidate = validateField(formData.cover_image);
+    var name = validateField(formData.name);
+     
 
-   var etcLttrTitle =  validateLettersOnly(formData.title);
-   var etcLttrauthor =  validateLettersOnly(formData.author);
+   var nameSpclLtr =  validateLettersOnly(formData.name);
 
-  if (!titleValidate ||
-        !authorValidate ||
-        !total_qtyValidate||
-        !isbnValidate||
-        !cover_imageValidate) {
+
+
+
+  if (!name) {
           
         Swal.fire({
             icon: 'error',
             title: 'Missing Fields',
-            text: 'Please fill all the details correctly!'
+            text: 'Please fill details correctly!'
         });
     
        
         return;
     }
 
-    if (!etcLttrTitle ||
-        !etcLttrauthor) {
+    if (!nameSpclLtr) {
         Swal.fire({
             icon: 'error',
             title: 'Missing Fields',
@@ -87,8 +80,8 @@ function validateLettersOnly(input) {
    btn.prop('disabled', true);
         btn.text('Creating...');
         var data = new FormData(formData);
-  var url = $('#create_book_form').attr('action');
-data.append('action', 'create_book');
+  var url = $('#create_category_form').attr('action');
+data.append('action', 'create_category');
 
 
 
@@ -121,7 +114,7 @@ data.append('action', 'create_book');
         }).then(()=>{
                         
                      
-                    $('.create_book_modal').modal('hide');
+                    $('#add_category_modal').modal('hide');
                   
                 location.reload();
                 }, 500);})
@@ -145,145 +138,111 @@ data.append('action', 'create_book');
  
 
 
-$('.edit_book_btn').on('click', function (){
+$('.edit_category_btn').on('click', function (){
 
     
-    var book_id = $(this).data('id');
-    if (!book_id) {
-        alert('Book not found!');
+    var category_id = $(this).data('id');
+    if (!category_id) {
+      Swal.fire({
+            icon: 'error',
+            title: 'Missing Fields',
+            text: 'category not found!'
+        });
+        
         return;
     }
 
     
 $.ajax({
-    url: BOOK_AJAX_URL,
+    url: category_AJAX_URL,
     type: 'POST',
-    data: { action: 'get_book_details', book_id: book_id },
+    data: { action: 'get_category_details', category_id: category_id },
     dataType: 'json',
     success: function (response) {
 
         if (response.status !== 'success') return;
 
-        let book = response.data;
+        let category = response.data; 
 
-       let categoryOptions = '';
-
-response.categories.forEach(cat => {
-    categoryOptions += `
-        <option value="${cat.id}" ${cat.id == book.category_id ? 'selected' : ''}>
-            ${cat.name}
-        </option>
-    `;
-});
         let modalHtml = `
-<div class="modal fade edit_book_model scrollShow" id="editBookModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
+        <div class="modal fade" id="edit_category_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-      <div class="modal-header">
-        <h4 class="modal-title">Edit Book</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Book Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-      <form id="edit_book_form" enctype="multipart/form-data">
+            <form id="edit_category_form">
+                <div class="modal-body">
+                <input type="hidden" name="category_id" value="${category.id}">
 
-        <input type="hidden" name="book_id" value="${book.id}">
-        <input type="hidden" name="isbn" value="${book.isbn}">
-        <input type="hidden" name="old_cover_image" value="${book.cover_image}">
+                    <label>Category Name</label>
+                    <input type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Category name"
+                        value="${category.name}"
+                        required>
 
-        <div class="modal-body scrollShow-body">
+                    <div class="mt-3">
+                        <label>Status</label>
+                        <select name="is_active" class="form-control">
+                            <option value="1" ${category.is_active == 1 ? 'selected' : ''}>Active</option>
+                            <option value="0" ${category.is_active == 0 ? 'selected' : ''}>Inactive</option>
+                        </select>
+                    </div>
 
-          <label>Title</label>
-          <input type="text" name="title" class="form-control" value="${book.title}" pattern="[A-Za-z ]+">
-            <div class="invalid-feedback">title is required!</div>
-          <label>Author</label>
-          <input type="text" name="author" class="form-control" value="${book.author}"  pattern="[A-Za-z ]+">
-            <div class="invalid-feedback">author is required!</div>
-            
-         <label>Category</label>
-<select name="category_id" class="form-control" required>
-    <option value="">-- Select Category --</option>
-    ${categoryOptions}
-</select>
-          
+                </div>
 
-          <label>Total Qty</label>
-          <input type="number" name="total_qty" class="form-control" value="${book.total_qty}"  min="0">
-          <div class="invalid-feedback">total qty is required!</div>
-
-          <!-- ✅ IS ACTIVE FIELD -->
-          <label class="mt-2">Status</label>
-          <select name="is_active" class="form-control" required>
-            <option value="1" ${book.is_active == 1 ? 'selected' : ''}>Active</option>
-            <option value="0" ${book.is_active == 0 ? 'selected' : ''}>Inactive</option>
-          </select>
-          <div class="invalid-feedback">Please select status!</div>
-
-          
-           <br>
-            
-
-          <p class="form-control-static" id="staticInput"> <img src="${upload_URL}/${book.cover_image}" width="50" class="rounded" id="coverPreview"></p>
-           
-          
-
-          <input type="file" name="cover_image" id="cover_image" class="form-control mt-2" accept="image/*">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="update_category">Update</button>
+                </div>
+            </form>
 
         </div>
-
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary book_update" id="book_update">Update</button>
-        </div>
-
-      </form>
-
     </div>
-  </div>
-</div>`;
+</div>
+`;
 
-        $('#editBookModal').remove();
+
+         $('#edit_category_modal').remove();
 
         $('body').append(modalHtml);
 
         new bootstrap.Modal(
-            document.getElementById('editBookModal')
+            document.getElementById('edit_category_modal')
         ).show();
+        
     }
 });
 
 
 });
 
-$(document).on('click', '.book_update', function (e) {
+$(document).on('click', '#update_category', function (e) {
     e.preventDefault();
 
     var btn  = $(this);
-    var form = $('#edit_book_form')[0];
+    var form = $('#edit_category_form')[0];
+
+
+    var categoryValidate    = validateField(form.name);
+
+   var etcLttrcategory=  validateLettersOnly(form.name);
    
 
-    var titleValidate    = validateField(form.title);
-    var authorValidate   = validateField(form.author);
-    var totalQtyValidate = validateField(form.total_qty);
-    var isbnValidate     = validateField(form.isbn);
-
-    
-   var etcLttrTitle =  validateLettersOnly(form.title);
-   var etcLttrauthor =  validateLettersOnly(form.author);
-
-    if (!titleValidate ||
-        !authorValidate ||
-        !totalQtyValidate ||
-        !isbnValidate) {
+    if (!categoryValidate ) {
         Swal.fire({
             icon: 'error',
             title: 'Missing Fields',
-            text: 'Please fill all the details correctly!'
+            text: 'Please fill the details correctly!'
         });
         return;
     }
-    if (!etcLttrTitle ||
-        !etcLttrauthor) {
+    if (!etcLttrcategory ) {
         Swal.fire({
             icon: 'error',
             title: 'Missing Fields',
@@ -292,16 +251,18 @@ $(document).on('click', '.book_update', function (e) {
 
         return;
     }
+
+
     if (!form.checkValidity()) {
     form.classList.add('was-validated');
     return;
         }
  btn.prop('disabled', true).text('Updating...');
     var formData = new FormData(form);
-    formData.append('action', 'update_book');
-
+    formData.append('action', 'update_category');
+            
     $.ajax({
-        url: BOOK_AJAX_URL,
+        url: category_AJAX_URL,
         type: 'POST',
         data: formData,
         processData: false,
@@ -328,7 +289,7 @@ $(document).on('click', '.book_update', function (e) {
         }).then(()=>{
 
             setTimeout(function () {
-                $('#editBookModal').modal('hide');
+                $('#edit_category_modal').modal('hide');
                 location.reload();
             }, 500);})
         } },
@@ -344,14 +305,14 @@ $(document).on('click', '.book_update', function (e) {
     });
 });
 
-$(document).on('click', '.delete_book_btn', function (e) {
+$(document).on('click', '.delete_category_btn', function (e) {
     e.preventDefault();
     
-    var book_id = $(this).data('id');
+    var category_id = $(this).data('id');
      Swal.fire({
         icon: 'warning',
         title: 'Are you sure?',
-        text: 'You will not be able to recover this book!',
+        text: 'You will not be able to recover this category!',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
@@ -361,9 +322,9 @@ $(document).on('click', '.delete_book_btn', function (e) {
     }).then((result)=>{ 
          if (!result.isConfirmed) return;
     $.ajax({
-        url: BOOK_AJAX_URL,
+        url: category_AJAX_URL,
         type: 'POST',
-        data: { action: 'delete_book', book_id: book_id },
+        data: { action: 'delete_category', category_id: category_id },
         dataType: 'json',
 
         success: function (response) {

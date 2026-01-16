@@ -2,7 +2,7 @@
 require_once __DIR__ . '/models/book.php';
 
 $bookModel = new Book();
-$books = $bookModel->getAll();
+$books = $bookModel->getAllBook();
 
 $categories = $bookModel->getCategories();
 
@@ -181,7 +181,7 @@ $categories = $bookModel->getCategories();
                                     <h1 class="display-4 text-uppercase text-white mb-4"> Manage Books, Members & Borrowing</h1>
                                     <p class="mb-5 fs-5"> Librarians can add books, manage members, issue and return books, and calculate fines efficiently.
                                     </p>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -198,102 +198,102 @@ $categories = $bookModel->getCategories();
 
     <!-- About Start -->
     <div class="container-fluid about py-5" id="library_rule_nav">
-    <div class="container py-5">
-        <div class="row g-5 align-items-center">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
 
-            <!-- Left Content -->
-            <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
-                <div>
-                    <h4 class="text-primary">Welcome to Your Smart Library</h4>
-                    <h1 class="display-5 mb-4">Your Gateway to Knowledge & Reading</h1>
+                <!-- Left Content -->
+                <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
+                    <div>
+                        <h4 class="text-primary">Welcome to Your Smart Library</h4>
+                        <h1 class="display-5 mb-4">Your Gateway to Knowledge & Reading</h1>
 
-                    <p class="mb-4">
-                        Discover a smarter way to manage your library! Our Library Management System empowers 
-                        members to find books instantly, borrow and return them seamlessly, and stay on top of due dates. 
-                        Librarians can efficiently manage books, members, and transactions with just a few clicks. 
-                        A modern, fast, and secure platform for everyone who loves reading.
-                    </p>
+                        <p class="mb-4">
+                            Discover a smarter way to manage your library! Our Library Management System empowers
+                            members to find books instantly, borrow and return them seamlessly, and stay on top of due dates.
+                            Librarians can efficiently manage books, members, and transactions with just a few clicks.
+                            A modern, fast, and secure platform for everyone who loves reading.
+                        </p>
 
-                    <div class="row g-4">
+                        <div class="row g-4">
 
-                        <div class="col-md-6">
-                            <div class="d-flex">
-                                <div>
-                                    <i class="fas fa-book fa-3x text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h4>Smart Book Management</h4>
-                                    <p>Add, update, and organize books effortlessly. Track stock and availability in real time.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="d-flex">
-                                <div>
-                                    <i class="fas fa-users fa-3x text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h4>Easy Member Management</h4>
-                                    <p>Keep track of all members, borrowing history, and upcoming return dates instantly.</p>
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-book fa-3x text-primary"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h4>Smart Book Management</h4>
+                                        <p>Add, update, and organize books effortlessly. Track stock and availability in real time.</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="d-flex">
-                                <div>
-                                    <i class="fas fa-clock fa-3x text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h4>Borrow & Return Instantly</h4>
-                                    <p>Issue and return books with ease while calculating late fines automatically.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="d-flex">
-                                <div>
-                                    <i class="fas fa-lock fa-3x text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h4>Secure & Reliable</h4>
-                                    <p>Role-based access ensures secure login for members and administrators alike.</p>
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-users fa-3x text-primary"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h4>Easy Member Management</h4>
+                                        <p>Keep track of all members, borrowing history, and upcoming return dates instantly.</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-6">
-                            <a href="#books" class="btn btn-primary rounded-pill py-3 px-5">
-                                Explore Books Now
-                            </a>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="d-flex">
-                                <i class="fas fa-user-shield fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Librarian Support</h4>
-                                    <p class="mb-0 fs-6">Full access to admin panel for smooth library management</p>
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-clock fa-3x text-primary"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h4>Borrow & Return Instantly</h4>
+                                        <p>Issue and return books with ease while calculating late fines automatically.</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-lock fa-3x text-primary"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h4>Secure & Reliable</h4>
+                                        <p>Role-based access ensures secure login for members and administrators alike.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <a href="#books" class="btn btn-primary rounded-pill py-3 px-5">
+                                    Explore Books Now
+                                </a>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="d-flex">
+                                    <i class="fas fa-user-shield fa-2x text-primary me-4"></i>
+                                    <div>
+                                        <h4>Librarian Support</h4>
+                                        <p class="mb-0 fs-6">Full access to admin panel for smooth library management</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Right Image -->
-            <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
-                <div class="bg-primary rounded position-relative overflow-hidden">
-                    <img src="<?=  asset('assets/images/librarian-1.jpg') ?>" class="img-fluid rounded w-100" alt="Library Image">
+                <!-- Right Image -->
+                <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
+                    <div class="bg-primary rounded position-relative overflow-hidden">
+                        <img src="<?= asset('assets/images/librarian-1.jpg') ?>" class="img-fluid rounded w-100" alt="Library Image">
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
     <!-- About End -->
 
 
@@ -310,8 +310,8 @@ $categories = $bookModel->getCategories();
             <!-- book search bar start -->
 
             <!-- Search & Filter Bar -->
-            <div class="row mb-4" >
-                <div class="col-md-3" >
+            <div class="row mb-4">
+                <div class="col-md-3">
                     <select class="form-select" id="search_type">
                         <option value="title">Search by Title</option>
                         <option value="author">Search by Author</option>
@@ -328,13 +328,13 @@ $categories = $bookModel->getCategories();
 
                 <div class="col-md-4">
                     <select class="form-select" id="filter_category">
-                        <option value="">All Categories</option>
-                        <?php foreach ($categories as $cat): ?>
-                            <option>
-                                <?= htmlspecialchars($cat['category']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+    <option value="">All Categories</option>
+    <?php foreach ($categories as $cat): ?>
+        <option value="<?= $cat['id'] ?>">
+            <?= htmlspecialchars($cat['name']) ?>
+        </option>
+    <?php endforeach; ?>
+</select>
                 </div>
             </div>
 
@@ -343,31 +343,31 @@ $categories = $bookModel->getCategories();
 
             <div class="row g-4" id="all_books_table">
                 <?php foreach ($books as $book): ?>
-                      <?php if($book['is_active']===1):  ?>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="service-item book-card">
-                            <div class="service-img book-img">
-                                <?php if (!empty($book['cover_image'])): ?>
-                                    <img src="<?= asset('assets/uploads/books/' . $book['cover_image']) ?>" alt="Book cover">
-                                <?php else: ?>
-                                    <img src="<?= asset('assets/images/b-cover-book-title.jpg') ?>" alt="Book cover">
-                                <?php endif; ?>
+                    <?php if ($book['is_active'] === 1):  ?>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-item book-card">
+                                <div class="service-img book-img">
+                                    <?php if (!empty($book['cover_image'])): ?>
+                                        <img src="<?= asset('assets/uploads/books/' . $book['cover_image']) ?>" alt="Book cover">
+                                    <?php else: ?>
+                                        <img src="<?= asset('assets/images/b-cover-book-title.jpg') ?>" alt="Book cover">
+                                    <?php endif; ?>
 
-                                <span class="book-status <?= $book['available_qty'] > 0 ? 'bg-success' : 'bg-danger' ?>">
-                                    <?= $book['available_qty'] > 0 ? 'Available' : 'Out of Stock' ?>
-                                </span>
-                            </div>
+                                    <span class="book-status <?= $book['available_qty'] > 0 ? 'bg-success' : 'bg-danger' ?>">
+                                        <?= $book['available_qty'] > 0 ? 'Available' : 'Out of Stock' ?>
+                                    </span>
+                                </div>
 
-                            <div class="rounded-bottom p-4 bg-white">
-                                <h5 class="fw-bold"><?= htmlspecialchars($book['title']) ?></h5>
-                                <p class="mb-1"><strong>ISBN:</strong> <?= htmlspecialchars($book['isbn']) ?></p>
-                                <p class="mb-1"><strong>Author:</strong> <?= htmlspecialchars($book['author']) ?></p>
-                                <p class="mb-1"><strong>Category:</strong> <?= htmlspecialchars($book['category']) ?></p>
-                                <p class="mb-0"><strong>Qty:</strong> <?= htmlspecialchars($book['available_qty']) ?></p>
+                                <div class="rounded-bottom p-4 bg-white">
+                                    <h5 class="fw-bold"><?= htmlspecialchars($book['title']) ?></h5>
+                                    <p class="mb-1"><strong>ISBN:</strong> <?= htmlspecialchars($book['isbn']) ?></p>
+                                    <p class="mb-1"><strong>Author:</strong> <?= htmlspecialchars($book['author']) ?></p>
+                                    <p class="mb-1"><strong>Category:</strong> <?= htmlspecialchars($book['category']) ?></p>
+                                    <p class="mb-0"><strong>Qty:</strong> <?= htmlspecialchars($book['available_qty']) ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                      <?php endif  ?>
+                    <?php endif  ?>
                 <?php endforeach; ?>
             </div>
 
@@ -379,8 +379,8 @@ $categories = $bookModel->getCategories();
     </div>
     <!-- books detrails show End -->
 
-   <!-- Features Start -->
-<!-- <div class="container-fluid feature pb-5">
+    <!-- Features Start -->
+    <!-- <div class="container-fluid feature pb-5">
     <div class="container pb-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
             <h4 class="text-primary">Library Features</h4>
@@ -534,7 +534,7 @@ $categories = $bookModel->getCategories();
     </script>
 
     <!-- AJAX and custom scripts -->
-    <script src="<?= asset('assets/form_ajax/search_books_index.js') ?>?v=<?= filemtime(BASE_PATH.'/assets/form_ajax/search_books_index.js') ?>"></script>
+    <script src="<?= asset('assets/form_ajax/search_books_index.js') ?>?v=<?= filemtime(BASE_PATH . '/assets/form_ajax/search_books_index.js') ?>"></script>
     <script src="<?= asset('assets/themes/mazer-theme/assets/js/extensions/sweetalert2.js?v=1.0') ?>"></script>
 
 </body>

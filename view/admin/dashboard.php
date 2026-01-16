@@ -27,9 +27,7 @@ $member = $membersModel->getMemberById($_SESSION['userId']);
                 <h6 class="text-muted mb-0">@<?= $loginnerName ?></h6>
 
             </div>
-            <div>
-                <a href="<?= asset('services/logout.php') ?>" class="btn btn-primary rounded-pill">Logout</a>
-            </div>
+         
         </div>
     </div>
 </div>
