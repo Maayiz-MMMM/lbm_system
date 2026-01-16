@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 13, 2026 at 06:24 PM
+-- Generation Time: Jan 16, 2026 at 08:48 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.26
 
@@ -31,7 +31,7 @@ CREATE TABLE `books` (
   `id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `author` varchar(100) DEFAULT NULL,
-  `category` varchar(50) DEFAULT NULL,
+  `category_id` int NOT NULL,
   `isbn` varchar(20) NOT NULL,
   `cover_image` varchar(255) DEFAULT NULL,
   `available_qty` int DEFAULT '1',
@@ -45,20 +45,22 @@ CREATE TABLE `books` (
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `title`, `author`, `category`, `isbn`, `cover_image`, `available_qty`, `total_qty`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'The Colour Purple', 'Alice Walke', 'Fiction', '9789043702997', 'img_696375b35efbf1.52166619.jpg', 100, 100, 1, '2025-12-21 09:23:56', '2026-01-13 08:02:11'),
-(2, 'East of Eden', 'John Steinbeck', 'American Literature', '9781398866102', 'img_69637f34dce0c7.22610044.jpg', 75, 75, 1, '2025-12-21 09:59:09', '2026-01-13 18:23:42'),
-(5, 'Murder', 'Arnold Bennett', 'Crime', '9787929596791', 'img_6963839a3735f7.81878893.jpg', 121, 121, 1, '2026-01-07 12:45:13', '2026-01-13 17:25:02'),
-(10, 'The Open Boat', 'Stephen Crane', 'Classic', '9781988079363', 'img_696383fc0244f3.74885025.jpg', 123, 123, 1, '2026-01-08 12:21:39', '2026-01-12 23:19:07'),
-(12, 'The Speckled Band', 'Sir Arthur Conan Doyle', 'Crime', '9786459424536', 'img_69638488d69d40.58622130.jpg', 120, 120, 1, '2026-01-08 12:33:56', '2026-01-13 18:23:59'),
-(15, 'The Signalman', 'Arthur Conan Doyle', 'Crime', '9789583213946', 'img_696384ce4578d0.11207971.jpg', 123, 123, 1, '2026-01-10 12:30:33', '2026-01-11 11:09:02'),
-(17, 'The Diamond as Big as the Ritz', 'F Scott Fitzgerald', 'Science Fiction', '9782530543332', 'img_696385352cf726.46878706.jpg', 200, 200, 1, '2026-01-10 15:58:56', '2026-01-11 11:10:45'),
-(18, 'The Hostage', 'CS Forester', 'Adventure', '9786080221610', 'img_696569952d2246.96443120.jpg', 1, 1, 1, '2026-01-10 16:41:58', '2026-01-13 10:03:09'),
-(26, 'check book edit', 'check author edit', 'feel edit', '9782842016906', 'img_6965322a7a8ca8.18206547.jpg', 1000, 1000, 1, '2026-01-12 17:32:41', '2026-01-12 22:21:08'),
-(27, 'new book', 'new author', 'new category', '9782172917782', 'img_69655dffed8979.99949513.jpg', 25, 25, 1, '2026-01-12 20:47:59', '2026-01-12 21:20:38'),
-(29, 'check title edit', 'check author edit', 'check category edit', '9782637946593', 'img_696570909425a7.82099644.jpg', 40, 40, 1, '2026-01-12 22:07:12', '2026-01-12 23:13:56'),
-(31, 'add new title', 'add new author', 'add new category', '9782495608497', 'img_69657e631b9e20.53506605.jpg', 100, 100, 1, '2026-01-12 23:06:11', '2026-01-12 23:06:11'),
-(33, 'life', 'life author', 'life category', '9780388803547', 'img_69661574831821.92003141.jpg', 10, 10, 1, '2026-01-13 09:50:44', '2026-01-13 09:50:44');
+INSERT INTO `books` (`id`, `title`, `author`, `category_id`, `isbn`, `cover_image`, `available_qty`, `total_qty`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'The Colour Purple', 'Alice Walke', 2, '9789043702997', 'img_696375b35efbf1.52166619.jpg', 100, 100, 1, '2025-12-21 09:23:56', '2026-01-16 20:13:02'),
+(2, 'East of Eden', 'John Steinbeck', 6, '9781398866102', 'img_69637f34dce0c7.22610044.jpg', 80, 80, 1, '2025-12-21 09:59:09', '2026-01-15 05:04:30'),
+(5, 'Murder', 'Arnold Bennett', 2, '9787929596791', 'img_6963839a3735f7.81878893.jpg', 121, 121, 1, '2026-01-07 12:45:13', '2026-01-15 05:04:30'),
+(10, 'The Open Boat', 'Stephen Crane', 3, '9781988079363', 'img_696383fc0244f3.74885025.jpg', 123, 123, 1, '2026-01-08 12:21:39', '2026-01-15 05:04:30'),
+(12, 'The Speckled Band', 'Sir Arthur Conan Doyle', 2, '9786459424536', 'img_69638488d69d40.58622130.jpg', 120, 120, 1, '2026-01-08 12:33:56', '2026-01-15 05:04:30'),
+(15, 'The Signalman', 'Arthur Conan Doyle', 2, '9789583213946', 'img_696384ce4578d0.11207971.jpg', 123, 123, 1, '2026-01-10 12:30:33', '2026-01-15 05:04:30'),
+(17, 'The Diamond as Big as the Ritz', 'F Scott Fitzgerald', 4, '9782530543332', 'img_696385352cf726.46878706.jpg', 200, 200, 1, '2026-01-10 15:58:56', '2026-01-15 05:04:30'),
+(18, 'The Hostage', 'CS Forester', 5, '9786080221610', 'img_696569952d2246.96443120.jpg', 1, 1, 1, '2026-01-10 16:41:58', '2026-01-15 05:04:30'),
+(26, 'check book edit', 'check author edit', 1, '9782842016906', 'img_6965322a7a8ca8.18206547.jpg', 1000, 1000, 1, '2026-01-12 17:32:41', '2026-01-16 20:13:14'),
+(27, 'new book', 'new author', 3, '9782172917782', 'img_69655dffed8979.99949513.jpg', 25, 25, 1, '2026-01-12 20:47:59', '2026-01-16 20:06:08'),
+(29, 'check title edit', 'check author edit', 3, '9782637946593', 'img_696570909425a7.82099644.jpg', 40, 40, 1, '2026-01-12 22:07:12', '2026-01-15 05:17:11'),
+(33, 'life', 'life author', 3, '9780388803547', 'img_69661574831821.92003141.jpg', 10, 10, 1, '2026-01-13 09:50:44', '2026-01-16 20:05:51'),
+(37, 'hasirama', 'senju', 6, '9782788866061', 'img_696a88cb17f4c5.89423045.jpg', 120, 120, 1, '2026-01-16 18:51:55', '2026-01-16 18:51:55'),
+(38, 'feelingsss', 'maartinss', 5, '9781237545151', 'img_696a96d2da7af5.17171234.jpg', 12, 12, 1, '2026-01-16 19:51:46', '2026-01-16 20:04:36'),
+(39, 'new book creates', 'new author creates', 5, '9789459299791', 'img_696a9cb3a32728.22088249.jpg', 12, 12, 1, '2026-01-16 20:16:51', '2026-01-16 20:17:12');
 
 -- --------------------------------------------------------
 
@@ -170,8 +172,37 @@ INSERT INTO `borrowings` (`id`, `member_id`, `book_id`, `issue_date`, `last_date
 (94, 5, 2, '2026-01-17', '2026-01-24', '2026-02-14', 'returned', 0.00, 55),
 (95, 5, 18, '2026-01-17', '2026-01-24', '2026-01-20', 'returned', 0.00, 1),
 (97, 5, 2, '2026-01-17', '2026-01-24', '2026-02-14', 'returned', 0.00, 65),
-(98, 27, 5, '2026-01-17', '2026-01-24', '2026-01-31', 'returned', 700.00, 12),
-(99, 5, 12, '2026-01-17', '2026-01-24', '2026-01-31', 'returned', 700.00, 12);
+(98, 27, 5, '2026-01-17', '2026-01-24', '2026-01-31', 'returned', 0.00, 12),
+(99, 5, 12, '2026-01-17', '2026-01-24', '2026-01-31', 'returned', 0.00, 12),
+(101, 5, 2, '2026-01-17', '2026-01-24', '2026-02-20', 'returned', 0.00, 80);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Fictions', 0, '2026-01-15 05:03:09', '2026-01-16 18:11:43'),
+(2, 'Crime', 1, '2026-01-15 05:03:09', '2026-01-16 18:07:17'),
+(3, 'Classic', 1, '2026-01-15 05:03:09', '2026-01-15 05:03:09'),
+(4, 'Science Fiction', 1, '2026-01-15 05:03:09', '2026-01-15 05:03:09'),
+(5, 'Adventure', 1, '2026-01-15 05:03:09', '2026-01-16 19:48:39'),
+(6, 'American Literature', 1, '2026-01-15 05:03:09', '2026-01-15 05:03:09'),
+(10, 'new category', 1, '2026-01-16 19:48:55', '2026-01-16 19:48:55'),
+(12, 'lolos', 0, '2026-01-16 20:32:08', '2026-01-16 20:32:16');
 
 -- --------------------------------------------------------
 
@@ -261,8 +292,9 @@ INSERT INTO `fines` (`id`, `borrow_id`, `member_id`, `amount`, `status`, `create
 (65, 93, 5, 3700.00, 'paid', '2026-01-13 08:02:11', '2026-01-13 08:02:27'),
 (66, 94, 5, 2100.00, 'paid', '2026-01-13 08:39:27', '2026-01-13 08:39:40'),
 (67, 97, 5, 2100.00, 'paid', '2026-01-13 10:02:33', '2026-01-13 10:05:17'),
-(68, 98, 27, 700.00, 'pending', '2026-01-13 17:25:02', NULL),
-(69, 99, 5, 700.00, 'pending', '2026-01-13 18:23:59', NULL);
+(68, 98, 27, 700.00, 'paid', '2026-01-13 17:25:02', '2026-01-13 18:32:00'),
+(69, 99, 5, 700.00, 'paid', '2026-01-13 18:23:59', '2026-01-13 18:32:05'),
+(70, 101, 5, 2700.00, 'paid', '2026-01-13 20:35:50', '2026-01-13 20:36:07');
 
 -- --------------------------------------------------------
 
@@ -317,7 +349,8 @@ INSERT INTO `members` (`id`, `name`, `email`, `password`, `phone`, `profile_imag
 --
 ALTER TABLE `books`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `isbn` (`isbn`);
+  ADD UNIQUE KEY `isbn` (`isbn`),
+  ADD KEY `fk_books_category` (`category_id`);
 
 --
 -- Indexes for table `borrowings`
@@ -326,6 +359,13 @@ ALTER TABLE `borrowings`
   ADD PRIMARY KEY (`id`),
   ADD KEY `member_id` (`member_id`),
   ADD KEY `book_id` (`book_id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `fines`
@@ -349,29 +389,41 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `borrowings`
 --
 ALTER TABLE `borrowings`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `fines`
 --
 ALTER TABLE `fines`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `books`
+--
+ALTER TABLE `books`
+  ADD CONSTRAINT `fk_books_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Constraints for table `borrowings`
