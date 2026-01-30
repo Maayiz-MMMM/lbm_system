@@ -1,11 +1,14 @@
 <?php require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/models/book.php';
+require_once __DIR__ . '/helpers/AppManager.php';
 
 $bookModel = new Book();
 $books = $bookModel->getAllBook();
 
 $categories = $bookModel->getCategories();
-
+$app = new AppManager();
+$sm   = AppManager::getSM();
+$logged_in = $sm->getAttribute('logged_in');
 
 
 ?>
@@ -77,13 +80,22 @@ $categories = $bookModel->getCategories();
 
 
 
+ <?php if ($logged_in): ?>
+                    <a href="<?= asset('services/logout.php') ?>" class="me-3 text-dark">
+                        <small>
+                            <i class="fa fa-sign-out-alt text-primary me-2"></i>
+                            Logout
+                        </small>
+                    </a>
+                <?php else: ?>
+
                     <a href="<?= asset('view/auth/login.php') ?>" class="me-3 text-dark">
                         <small>
                             <i class="fa fa-sign-in-alt text-primary me-2"></i>
                             Login
                         </small>
                     </a>
-
+                <?php endif; ?>
 
 
                 </div>
@@ -109,7 +121,7 @@ $categories = $bookModel->getCategories();
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.php" class="nav-item nav-link active">Home</a>
                     <a href="#all_books_table" class="nav-item nav-link">Books</a>
-                    <a href="<?= asset('view/auth/login.php') ?>" class="nav-item nav-link">Login</a>
+                      <a href="<?= asset('view/auth/login.php') ?>" class="nav-item nav-link"> <?= $logged_in ? 'Dashboard' : 'Login' ?></a>
                     <a href="#footer_nav" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <a href="#search_bar_nav" class="btn btn-primary rounded-pill py-2 px-4 my-3 my-lg-0 flex-shrink-0">
